@@ -6,7 +6,9 @@ import type { Context, Config } from "@netlify/functions";
 // POST /api/reservations  { id, clientId, action: "reserve" | "release" }
 
 export default async (req: Request, context: Context) => {
-  const store = getStore("reservations");
+  // Strong consistency: without it, a reservation just written can be
+  // invisible to a read that follows immediately (e.g. reserve -> refresh).
+  const store = getStore({ name: "reservations", consistency: "strong" });
 
   if (req.method === "GET") {
     const url = new URL(req.url);
