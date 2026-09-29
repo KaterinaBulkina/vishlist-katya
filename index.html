@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Вишлист Кати</title>
+</head>
+<body>
+<style>
+  :root{
+    --bg:#fdf2f6;
+    --surface:#ffffff;
+    --surface-2:#fff8fa;
+    --ink:#2b1420;
+    --ink-soft:#8a5f6c;
+    --accent:#d1447a;
+    --accent-deep:#9c2354;
+    --gold:#b98a45;
+    --line:#f0d7e0;
+    --shadow: 0 20px 45px -20px rgba(156,35,84,0.28);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1a0f15;
+      --surface:#241420;
+      --surface-2:#2b1721;
+      --ink:#f7e8ee;
+      --ink-soft:#c39aa8;
+      --accent:#ef7099;
+      --accent-deep:#ff96b8;
+      --gold:#dcb877;
+      --line:#3c2430;
+      --shadow: 0 20px 45px -18px rgba(0,0,0,0.55);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1a0f15;
+    --surface:#241420;
+    --surface-2:#2b1721;
+    --ink:#f7e8ee;
+    --ink-soft:#c39aa8;
+    --accent:#ef7099;
+    --accent-deep:#ff96b8;
+    --gold:#dcb877;
+    --line:#3c2430;
+    --shadow: 0 20px 45px -18px rgba(0,0,0,0.55);
+    color-scheme: dark;
+  }
+
+  * { box-sizing:border-box; }
+
+  body{
+    background:
+      radial-gradient(60rem 30rem at 12% -8%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%),
+      radial-gradient(50rem 28rem at 100% 0%, color-mix(in srgb, var(--gold) 14%, transparent), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:"Golos Text","Manrope",-apple-system,sans-serif;
+    padding-inline:20px;
+    padding-block: max(40px, env(safe-area-inset-top, 0px)) 60px;
+  }
+
+  .wrap{ max-width:1040px; margin-inline:auto; }
+
+  h1,h2,h3,.brand{
+    font-family:"Unbounded","Golos Text",sans-serif;
+    text-wrap:balance;
+    margin:0;
+  }
+
+  a{ color:inherit; }
+
+  /* ---------- header ---------- */
+  header.top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding-block:8px 36px;
+    flex-wrap:wrap;
+  }
+  .brand{
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:0.04em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .brand .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .top-note{
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{ padding-block: 18px 52px; }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;
+    background:var(--gold);
+  }
+  .hero h1{
+    font-size:clamp(34px, 6vw, 58px);
+    line-height:1.06;
+    font-weight:800;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .accent{
+    color:var(--accent);
+    font-style:italic;
+    font-weight:700;
+  }
+  .hero p{
+    margin:22px 0 0;
+    max-width:52ch;
+    font-size:17px;
+    line-height:1.65;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- section headers ---------- */
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-size:clamp(22px, 3.4vw, 30px);
+    font-weight:700;
+  }
+  .section-head .count{
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  section{ padding-block:34px; }
+  section + section{ border-top:1px solid var(--line); }
+
+  /* ---------- gift grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+  }
+  @media (max-width:640px){
+    .grid{ grid-template-columns:1fr; }
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    box-shadow:var(--shadow);
+    transition:transform .25s ease, box-shadow .25s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+  }
+  .card-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .icon-tile{
+    width:64px;height:64px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+      linear-gradient(150deg, color-mix(in srgb, var(--accent) 16%, var(--surface-2)), var(--surface-2));
+    border:1px solid var(--line);
+    flex:none;
+  }
+  .icon-tile svg{ width:32px; height:32px; stroke:var(--accent-deep); fill:none; stroke-width:1.5; }
+  .price-tag{
+    font-family:"Unbounded",sans-serif;
+    font-weight:700;
+    font-size:17px;
+    color:var(--accent-deep);
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  .price-tag small{
+    display:block;
+    font-family:"Golos Text",sans-serif;
+    font-weight:500;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:2px;
+  }
+  .card h3{
+    font-size:19px;
+    font-weight:600;
+    line-height:1.3;
+    font-family:"Golos Text",sans-serif;
+  }
+  .card .maker{
+    display:block;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .card p.desc{
+    margin:0;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    line-height:1.55;
+    flex-grow:1;
+  }
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    align-self:flex-start;
+    margin-top:4px;
+    padding:11px 18px;
+    border-radius:100px;
+    background:var(--accent);
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+    box-shadow:0 10px 24px -10px color-mix(in srgb, var(--accent-deep) 70%, transparent);
+    transition:background .2s ease, transform .2s ease;
+  }
+  .cta:hover{ background:var(--accent-deep); transform:translateY(-1px); }
+  .cta svg{ width:14px;height:14px; stroke:currentColor; fill:none; stroke-width:2; }
+
+  /* ---------- reservation ---------- */
+  .card-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:4px;
+  }
+  .card-actions .cta{ margin-top:0; }
+  .reserve-btn{
+    appearance:none;
+    border:1.5px solid var(--accent);
+    background:transparent;
+    color:var(--accent-deep);
+    font-family:"Golos Text",sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    padding:9.5px 16px;
+    border-radius:100px;
+    cursor:pointer;
+    transition:background .2s ease, color .2s ease, border-color .2s ease, opacity .2s ease;
+  }
+  .reserve-btn:hover:not(:disabled){ background:color-mix(in srgb, var(--accent) 12%, transparent); }
+  .reserve-btn.is-mine{ border-color:var(--gold); color:var(--gold); }
+  .reserve-btn.is-mine:hover:not(:disabled){ background:color-mix(in srgb, var(--gold) 14%, transparent); }
+  .reserve-btn.is-taken{ border-color:var(--line); color:var(--ink-soft); cursor:not-allowed; opacity:.75; }
+  .reserve-btn:disabled{ cursor:wait; }
+  .reserve-badge{
+    font-size:12px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .reserve-badge.mine{ color:var(--gold); font-weight:600; }
+
+  /* ---------- secondary ideas ---------- */
+  .idea-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .idea-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 18px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .idea-row:hover{
+    border-color:var(--accent);
+    transform:translateX(3px);
+  }
+  .idea-icon{
+    width:42px;height:42px;
+    border-radius:12px;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  .idea-icon svg{ width:20px;height:20px; stroke:var(--accent-deep); fill:none; stroke-width:1.6; }
+  .idea-text{ flex-grow:1; min-width:0; }
+  .idea-text .t{ font-weight:600; font-size:15px; }
+  .idea-text .d{ font-size:13px; color:var(--ink-soft); margin-top:2px; }
+  .idea-go{
+    flex:none;
+    width:34px;height:34px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--accent-deep);
+  }
+  .idea-go svg{ width:14px;height:14px; stroke:currentColor; fill:none; stroke-width:2; }
+  .intro-note{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    margin:-8px 0 22px;
+    max-width:60ch;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top:20px;
+    padding-top:34px;
+    text-align:center;
+  }
+  footer .sig{
+    font-family:"Unbounded",sans-serif;
+    font-size:18px;
+    font-weight:700;
+    color:var(--accent-deep);
+  }
+  footer .fine{
+    margin-top:10px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand"><span class="dot"></span> Вишлист · Катя</div>
+    <div class="top-note">обновлено в сентябре</div>
+  </header>
+
+  <section class="hero" style="padding-top:0;border-top:none;">
+    <div class="eyebrow">Личный список желаний</div>
+    <h1>Не знаете, что подарить?<br><span class="accent">Вот шпаргалка от меня</span></h1>
+    <p>Подруги выбили из меня вишлист — держите. Жмите на карточку, переходите по ссылке и дарите смело 💗</p>
+  </section>
+
+  <section style="border-top:1px solid var(--line);">
+    <div class="section-head">
+      <h2>Топ желаний</h2>
+      <div class="count">5 позиций · с ценой и ссылкой</div>
+    </div>
+    <p class="intro-note">Нажмите «Забронировать» на подарке — и другие сразу увидят, что его уже выбрали. Передумали — бронь можно снять в любой момент.</p>
+
+    <div class="grid">
+
+      <!-- 1 -->
+      <div class="card" data-gift-id="ua-duffle-bag">
+        <div class="card-top">
+          <div class="icon-tile">
+            <svg viewBox="0 0 24 24"><path d="M4 9h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9Z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/><path d="M4 13h16"/></svg>
+          </div>
+          <div class="price-tag"><small>цена</small>1789 ₴</div>
+        </div>
+        <div>
+          <span class="maker">Under Armour</span>
+          <h3>Спортивная сумка Undeniable 5.0 Duffle XS, чёрная</h3>
+        </div>
+        <p class="desc">Компактная дорожная/спортивная сумка, водоотталкивающая ткань UA Storm, отдельный карман для обуви.</p>
+        <div class="card-actions">
+          <a class="cta" href="https://gymbeam.ua/undeniable-5-0-duffle-sports-bag-xs-black-under-armour.html" target="_blank" rel="noopener">
+            Хочу это <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <button type="button" class="reserve-btn">Забронировать</button>
+        </div>
+        <div class="reserve-badge" hidden></div>
+      </div>
+
+      <!-- 2 -->
+      <div class="card" data-gift-id="lipss-lipper">
+        <div class="card-top">
+          <div class="icon-tile">
+            <svg viewBox="0 0 24 24"><path d="M9 3h6l1 5-4 13-4-13 1-5Z"/><path d="M9 8h6"/><path d="M14.5 5.5l2 2M6 12l1.5 1.5"/></svg>
+          </div>
+          <div class="price-tag"><small>цена</small>520 ₴</div>
+        </div>
+        <div>
+          <span class="maker">LIPSS</span>
+          <h3>Блеск для губ «Smells Like Money»</h3>
+        </div>
+        <p class="desc">Аромат кофе с корицей, шоколадный оттенок с золотым шиммером. Церамиды, пептид, витамин Е в составе.</p>
+        <div class="card-actions">
+          <a class="cta" href="https://lipss.care/products/smells-like-money-lipper" target="_blank" rel="noopener">
+            Хочу это <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <button type="button" class="reserve-btn">Забронировать</button>
+        </div>
+        <div class="reserve-badge" hidden></div>
+      </div>
+
+      <!-- 3 -->
+      <div class="card" data-gift-id="karma-case">
+        <div class="card-top">
+          <div class="icon-tile">
+            <svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="3"/><path d="M12 6.5c-1.4 0-2.2 1-2.2 2 0 1.6 2.2 2.6 2.2 4.3 0-1.7 2.2-2.7 2.2-4.3 0-1-.8-2-2.2-2Z"/></svg>
+          </div>
+          <div class="price-tag"><small>от</small>250 ₴</div>
+        </div>
+        <div>
+          <span class="maker">KARMA</span>
+          <h3>Чехол для телефона «Всемогутній Христос»</h3>
+        </div>
+        <p class="desc">Из коллекции «Релігійна карма», под точную модель телефона. Силикон, есть опция MagSafe и защитное стекло.</p>
+        <div class="card-actions">
+          <a class="cta" href="https://karmacase.in.ua/product/chohol-dlya-iphone-vsemogutnij-hrystos" target="_blank" rel="noopener">
+            Хочу это <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <button type="button" class="reserve-btn">Забронировать</button>
+        </div>
+        <div class="reserve-badge" hidden></div>
+      </div>
+
+      <!-- 4 -->
+      <div class="card" data-gift-id="maslotom-bars">
+        <div class="card-top">
+          <div class="icon-tile">
+            <svg viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="8" rx="2.5"/><path d="M8 8V6.5a1.5 1.5 0 0 1 3 0V8M13 8V6.5a1.5 1.5 0 0 1 3 0V8"/></svg>
+          </div>
+          <div class="price-tag"><small>≈ цена</small>1990 ₴</div>
+        </div>
+        <div>
+          <span class="maker">TOM · Maslotom</span>
+          <h3>Батончики «Фисташка-Катаифи», 20 шт</h3>
+        </div>
+        <p class="desc">Упаковка из 20 батончиков по 45 г — молочный шоколад, фисташковая паста, хрустящее тесто катаифи.</p>
+        <div class="card-actions">
+          <a class="cta" href="https://maslotom.com/product/batonchik-fistashka-katayifi-20sht" target="_blank" rel="noopener">
+            Хочу это <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <button type="button" class="reserve-btn">Забронировать</button>
+        </div>
+        <div class="reserve-badge" hidden></div>
+      </div>
+
+      <!-- 5 -->
+      <div class="card" data-gift-id="benson-pots">
+        <div class="card-top">
+          <div class="icon-tile">
+            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="7" rx="8" ry="2.4"/><path d="M4 7v6c0 1.3 3.6 2.4 8 2.4s8-1.1 8-2.4V7"/><path d="M4 13v4c0 1.3 3.6 2.4 8 2.4s8-1.1 8-2.4v-4"/></svg>
+          </div>
+          <div class="price-tag"><small>цена</small>2180 ₴</div>
+        </div>
+        <div>
+          <span class="maker">Benson</span>
+          <h3>Набор кастрюль BN-100312 с мраморным покрытием, 6 предметов</h3>
+        </div>
+        <p class="desc">Кованый алюминий, 3 кастрюли с крышками — 2.2 л, 3.2 л и 4.2 л. Подходит для всех плит, можно мыть в посудомойке.</p>
+        <div class="card-actions">
+          <a class="cta" href="https://makitra.ua/nabor-kastrjul-s-mramornym-antiprigarnym-pokrytiem-benson-bn-100312-6-predmetov" target="_blank" rel="noopener">
+            Хочу это <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <button type="button" class="reserve-btn">Забронировать</button>
+        </div>
+        <div class="reserve-badge" hidden></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Или вот эти идеи</h2>
+      <div class="count">6 позиций · детали по ссылке</div>
+    </div>
+    <p class="intro-note">Тут я не всё успела красиво описать — цену, размер или вариант смотрите на самой странице по ссылке.</p>
+
+    <div class="idea-list">
+
+      <a class="idea-row" href="https://globalglass.in.ua/pidlohovyi-rgb-torsher-lampa-150sm-pratsiuie-vid-power-bank/450/" target="_blank" rel="noopener">
+        <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M8 14a4 4 0 1 1 8 0c0 2-1.5 2.5-1.5 4.5h-5C9.5 16.5 8 16 8 14Z"/><path d="M9.5 21h5"/></svg></div>
+        <div class="idea-text">
+          <div class="t">RGB-торшер, 150 см, работает от павербанка</div>
+          <div class="d">Global Glass — цена и цвет подсветки на странице товара</div>
+        </div>
+        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+      </a>
+
+      <a class="idea-row" href="https://rozetka.com.ua/ua/496629364/p496629364/" target="_blank" rel="noopener">
+        <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M4 8h16v12H4V8Z"/><path d="M4 8 6 4h12l2 4M12 8v12"/></svg></div>
+        <div class="idea-text">
+          <div class="t">Кое-что с Rozetka</div>
+          <div class="d">Не скажу что именно — но точно то самое</div>
+        </div>
+        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+      </a>
+
+      <a class="idea-row" href="https://www.instagram.com/p/DXZH3B_DPvY/" target="_blank" rel="noopener">
+        <div class="idea-icon"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1"/></svg></div>
+        <div class="idea-text">
+          <div class="t">Идея из Instagram</div>
+          <div class="d">Сохранила пост — просто гляньте, поймёте</div>
+        </div>
+        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+      </a>
+
+      <a class="idea-row" href="https://prazdnik-shop.com.ua/articles/idei-dlya-vecherinok-i-podarkov/5-sposobov-neobychno-podarit-dengi/" target="_blank" rel="noopener">
+        <div class="idea-icon"><svg viewBox="0 0 24 24"><rect x="2.5" y="6.5" width="19" height="11" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></div>
+        <div class="idea-text">
+          <div class="t">Деньги — тоже вариант</div>
+          <div class="d">Можно красиво оформить, вот вдохновение по ссылке</div>
+        </div>
+        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+      </a>
+
+      <a class="idea-row" href="https://intimka.ua/svakom-mini-emma-neo/" target="_blank" rel="noopener">
+        <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7-4.2-7-9.2a4.3 4.3 0 0 1 7-3.3 4.3 4.3 0 0 1 7 3.3c0 5-7 9.2-7 9.2Z"/><path d="M12 12v3M10.3 13.5h3.4"/></svg></div>
+        <div class="idea-text">
+          <div class="t">Svakom Mini Emma Neo</div>
+          <div class="d">Для взрослых — цена и детали по ссылке 😉</div>
+        </div>
+        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+      </a>
+
+      <a class="idea-row" href="https://www.instagram.com/p/Dds3LgPl-dm/?img_index=1&stkn=a2dzZG15eWR1NmZ2" target="_blank" rel="noopener">
+        <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M8 4 4 7l2.5 2.5L8 8v12h8V8l1.5 1.5L20 7l-4-3-2 2h-4L8 4Z"/></svg></div>
+        <div class="idea-text">
+          <div class="t">Футболка «Коллеги, сильно отстаём по интеллекту»</div>
+          <div class="d">yourcrazy_store — цена и заказ в директе/телеграме магазина 😄</div>
+        </div>
+        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="sig">с любовью, Катя</div>
+    <div class="fine">спасибо, что спросили, что мне подарить ♥</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  function getClientId(){
+    try {
+      var id = localStorage.getItem('wishlist_client_id');
+      if(!id){
+        id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('cid-' + Date.now() + '-' + Math.random().toString(16).slice(2));
+        localStorage.setItem('wishlist_client_id', id);
+      }
+      return id;
+    } catch(e){
+      return 'anon-' + Math.random().toString(16).slice(2);
+    }
+  }
+
+  var clientId = getClientId();
+  var cards = Array.prototype.slice.call(document.querySelectorAll('[data-gift-id]'));
+  if(!cards.length) return;
+
+  function applyState(card, state){
+    var btn = card.querySelector('.reserve-btn');
+    var badge = card.querySelector('.reserve-badge');
+    if(!btn) return;
+    btn.disabled = false;
+    if(!state || !state.reserved){
+      btn.textContent = 'Забронировать';
+      btn.classList.remove('is-mine','is-taken');
+      if(badge){ badge.hidden = true; badge.classList.remove('mine'); }
+    } else if(state.mine){
+      btn.textContent = 'Отменить бронь';
+      btn.classList.add('is-mine');
+      btn.classList.remove('is-taken');
+      if(badge){ badge.hidden = false; badge.classList.add('mine'); badge.textContent = 'Вы забронировали этот подарок'; }
+    } else {
+      btn.textContent = 'Уже забронировано';
+      btn.disabled = true;
+      btn.classList.add('is-taken');
+      btn.classList.remove('is-mine');
+      if(badge){ badge.hidden = false; badge.classList.remove('mine'); badge.textContent = 'Кто-то уже собрался это дарить 💝'; }
+    }
+  }
+
+  function loadStates(){
+    fetch('/api/reservations?clientId=' + encodeURIComponent(clientId), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : {}; })
+      .then(function(data){
+        cards.forEach(function(card){
+          var id = card.getAttribute('data-gift-id');
+          applyState(card, data[id]);
+        });
+      })
+      .catch(function(){ /* backend недоступен — кнопки остаются в дефолтном виде */ });
+  }
+
+  cards.forEach(function(card){
+    var btn = card.querySelector('.reserve-btn');
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('is-taken')) return;
+      var id = card.getAttribute('data-gift-id');
+      var isMine = btn.classList.contains('is-mine');
+      var action = isMine ? 'release' : 'reserve';
+      btn.disabled = true;
+      fetch('/api/reservations', {
+        method: 'POST',
+        headers: {'content-type':'application/json'},
+        body: JSON.stringify({ id: id, clientId: clientId, action: action })
+      })
+        .then(function(r){
+          return r.json().catch(function(){ return {}; }).then(function(data){ return {ok: r.ok, status: r.status, data: data}; });
+        })
+        .then(function(res){
+          if(res.ok){
+            applyState(card, action === 'reserve' ? {reserved:true, mine:true} : {reserved:false, mine:false});
+          } else if(res.status === 409){
+            applyState(card, {reserved:true, mine:false});
+          } else {
+            btn.disabled = false;
+          }
+        })
+        .catch(function(){ btn.disabled = false; });
+    });
+  });
+
+  loadStates();
+})();
+</script>
+
+</body>
+</html>
