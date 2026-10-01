@@ -303,19 +303,34 @@
   }
   .idea-row{
     display:flex;
-    align-items:center;
-    gap:16px;
+    flex-direction:column;
+    gap:12px;
     padding:16px 18px;
     background:var(--surface);
     border:1px solid var(--line);
     border-radius:16px;
-    text-decoration:none;
-    color:var(--ink);
-    transition:border-color .2s ease, transform .2s ease;
+    transition:border-color .2s ease;
   }
   .idea-row:hover{
     border-color:var(--accent);
-    transform:translateX(3px);
+  }
+  .idea-main{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .idea-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    padding-left:58px;
+  }
+  .idea-actions .reserve-badge{ margin:0; }
+  @media (max-width:480px){
+    .idea-actions{ padding-left:0; }
   }
   .idea-icon{
     width:42px;height:42px;
@@ -512,59 +527,95 @@
 
     <div class="idea-list">
 
-      <a class="idea-row" href="https://globalglass.in.ua/pidlohovyi-rgb-torsher-lampa-150sm-pratsiuie-vid-power-bank/450/" target="_blank" rel="noopener">
-        <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M8 14a4 4 0 1 1 8 0c0 2-1.5 2.5-1.5 4.5h-5C9.5 16.5 8 16 8 14Z"/><path d="M9.5 21h5"/></svg></div>
-        <div class="idea-text">
-          <div class="t">RGB-торшер, 150 см, работает от павербанка</div>
-          <div class="d">Global Glass — цена и цвет подсветки на странице товара</div>
+      <div class="idea-row" data-gift-id="rgb-lamp">
+        <a class="idea-main" href="https://globalglass.in.ua/pidlohovyi-rgb-torsher-lampa-150sm-pratsiuie-vid-power-bank/450/" target="_blank" rel="noopener">
+          <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M8 14a4 4 0 1 1 8 0c0 2-1.5 2.5-1.5 4.5h-5C9.5 16.5 8 16 8 14Z"/><path d="M9.5 21h5"/></svg></div>
+          <div class="idea-text">
+            <div class="t">RGB-торшер, 150 см, работает от павербанка</div>
+            <div class="d">Global Glass — цена и цвет подсветки на странице товара</div>
+          </div>
+          <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+        </a>
+        <div class="idea-actions">
+          <button type="button" class="reserve-btn">Забронировать</button>
         </div>
-        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
-      </a>
+        <div class="reserve-badge" hidden></div>
+      </div>
 
-      <a class="idea-row" href="https://rozetka.com.ua/ua/496629364/p496629364/" target="_blank" rel="noopener">
-        <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M4 8h16v12H4V8Z"/><path d="M4 8 6 4h12l2 4M12 8v12"/></svg></div>
-        <div class="idea-text">
-          <div class="t">Кое-что с Rozetka</div>
-          <div class="d">Не скажу что именно — но точно то самое</div>
+      <div class="idea-row" data-gift-id="rozetka-mystery">
+        <a class="idea-main" href="https://rozetka.com.ua/ua/496629364/p496629364/" target="_blank" rel="noopener">
+          <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M4 8h16v12H4V8Z"/><path d="M4 8 6 4h12l2 4M12 8v12"/></svg></div>
+          <div class="idea-text">
+            <div class="t">Кое-что с Rozetka</div>
+            <div class="d">Не скажу что именно — но точно то самое</div>
+          </div>
+          <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+        </a>
+        <div class="idea-actions">
+          <button type="button" class="reserve-btn">Забронировать</button>
         </div>
-        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
-      </a>
+        <div class="reserve-badge" hidden></div>
+      </div>
 
-      <a class="idea-row" href="https://www.instagram.com/p/DXZH3B_DPvY/" target="_blank" rel="noopener">
-        <div class="idea-icon"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1"/></svg></div>
-        <div class="idea-text">
-          <div class="t">Идея из Instagram</div>
-          <div class="d">Сохранила пост — просто гляньте, поймёте</div>
+      <div class="idea-row" data-gift-id="instagram-idea">
+        <a class="idea-main" href="https://www.instagram.com/p/DXZH3B_DPvY/" target="_blank" rel="noopener">
+          <div class="idea-icon"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1"/></svg></div>
+          <div class="idea-text">
+            <div class="t">Идея из Instagram</div>
+            <div class="d">Сохранила пост — просто гляньте, поймёте</div>
+          </div>
+          <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+        </a>
+        <div class="idea-actions">
+          <button type="button" class="reserve-btn">Забронировать</button>
         </div>
-        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
-      </a>
+        <div class="reserve-badge" hidden></div>
+      </div>
 
-      <a class="idea-row" href="https://prazdnik-shop.com.ua/articles/idei-dlya-vecherinok-i-podarkov/5-sposobov-neobychno-podarit-dengi/" target="_blank" rel="noopener">
-        <div class="idea-icon"><svg viewBox="0 0 24 24"><rect x="2.5" y="6.5" width="19" height="11" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></div>
-        <div class="idea-text">
-          <div class="t">Деньги — тоже вариант</div>
-          <div class="d">Можно красиво оформить, вот вдохновение по ссылке</div>
+      <div class="idea-row" data-gift-id="money-gift">
+        <a class="idea-main" href="https://prazdnik-shop.com.ua/articles/idei-dlya-vecherinok-i-podarkov/5-sposobov-neobychno-podarit-dengi/" target="_blank" rel="noopener">
+          <div class="idea-icon"><svg viewBox="0 0 24 24"><rect x="2.5" y="6.5" width="19" height="11" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></div>
+          <div class="idea-text">
+            <div class="t">Деньги — тоже вариант</div>
+            <div class="d">Можно красиво оформить, вот вдохновение по ссылке</div>
+          </div>
+          <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+        </a>
+        <div class="idea-actions">
+          <button type="button" class="reserve-btn">Забронировать</button>
         </div>
-        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
-      </a>
+        <div class="reserve-badge" hidden></div>
+      </div>
 
-      <a class="idea-row" href="https://intimka.ua/svakom-mini-emma-neo/" target="_blank" rel="noopener">
-        <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7-4.2-7-9.2a4.3 4.3 0 0 1 7-3.3 4.3 4.3 0 0 1 7 3.3c0 5-7 9.2-7 9.2Z"/><path d="M12 12v3M10.3 13.5h3.4"/></svg></div>
-        <div class="idea-text">
-          <div class="t">Svakom Mini Emma Neo</div>
-          <div class="d">Для взрослых — цена и детали по ссылке 😉</div>
+      <div class="idea-row" data-gift-id="svakom-emma-neo">
+        <a class="idea-main" href="https://intimka.ua/svakom-mini-emma-neo/" target="_blank" rel="noopener">
+          <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7-4.2-7-9.2a4.3 4.3 0 0 1 7-3.3 4.3 4.3 0 0 1 7 3.3c0 5-7 9.2-7 9.2Z"/><path d="M12 12v3M10.3 13.5h3.4"/></svg></div>
+          <div class="idea-text">
+            <div class="t">Svakom Mini Emma Neo</div>
+            <div class="d">Для взрослых — цена и детали по ссылке 😉</div>
+          </div>
+          <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+        </a>
+        <div class="idea-actions">
+          <button type="button" class="reserve-btn">Забронировать</button>
         </div>
-        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
-      </a>
+        <div class="reserve-badge" hidden></div>
+      </div>
 
-      <a class="idea-row" href="https://www.instagram.com/p/Dds3LgPl-dm/?img_index=1&stkn=a2dzZG15eWR1NmZ2" target="_blank" rel="noopener">
-        <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M8 4 4 7l2.5 2.5L8 8v12h8V8l1.5 1.5L20 7l-4-3-2 2h-4L8 4Z"/></svg></div>
-        <div class="idea-text">
-          <div class="t">Футболка «Коллеги, сильно отстаём по интеллекту»</div>
-          <div class="d">yourcrazy_store — цена и заказ в директе/телеграме магазина 😄</div>
+      <div class="idea-row" data-gift-id="yourcrazy-tshirt">
+        <a class="idea-main" href="https://www.instagram.com/p/Dds3LgPl-dm/?img_index=1&stkn=a2dzZG15eWR1NmZ2" target="_blank" rel="noopener">
+          <div class="idea-icon"><svg viewBox="0 0 24 24"><path d="M8 4 4 7l2.5 2.5L8 8v12h8V8l1.5 1.5L20 7l-4-3-2 2h-4L8 4Z"/></svg></div>
+          <div class="idea-text">
+            <div class="t">Футболка «Коллеги, сильно отстаём по интеллекту»</div>
+            <div class="d">yourcrazy_store — цена и заказ в директе/телеграме магазина 😄</div>
+          </div>
+          <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+        </a>
+        <div class="idea-actions">
+          <button type="button" class="reserve-btn">Забронировать</button>
         </div>
-        <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
-      </a>
+        <div class="reserve-badge" hidden></div>
+      </div>
 
     </div>
   </section>
