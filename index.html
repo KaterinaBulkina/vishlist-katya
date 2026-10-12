@@ -329,8 +329,23 @@
     padding-left:58px;
   }
   .idea-actions .reserve-badge{ margin:0; }
+  .idea-photos{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    padding-left:58px;
+  }
+  .idea-photos img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:12px;
+    border:1px solid var(--line);
+    display:block;
+  }
   @media (max-width:480px){
     .idea-actions{ padding-left:0; }
+    .idea-photos{ padding-left:0; gap:6px; }
   }
   .idea-icon{
     width:42px;height:42px;
@@ -626,6 +641,11 @@
           </div>
           <div class="idea-go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
         </a>
+        <div class="idea-photos">
+          <img src="img/bertucci-1.jpg" alt="Сумка Bertucci, чёрно-белый питон" loading="lazy">
+          <img src="img/bertucci-2.jpg" alt="Сумка Bertucci, серебристо-розовый принт" loading="lazy">
+          <img src="img/bertucci-3.jpg" alt="Сумка Bertucci, цветочный принт" loading="lazy">
+        </div>
         <div class="idea-actions">
           <button type="button" class="reserve-btn">Забронировать</button>
         </div>
